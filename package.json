@@ -1,0 +1,40 @@
+{
+  "name": "battleship",
+  "version": "1.0.0",
+  "description": "Battleship is a strategy type guessing game. This project is developed following TDD (Test Driven Development) principles.",
+  "private": true,
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "jest ./src/test/",
+    "build": "webpack --progress",
+    "monitor": "jest ./src/test/ --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RhazzXIX/battleship.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RhazzXIX/battleship/issues"
+  },
+  "homepage": "https://github.com/RhazzXIX/battleship#readme",
+  "devDependencies": {
+    "@babel/core": "^7.21.0",
+    "@babel/preset-env": "^7.20.2",
+    "babel-loader": "^9.1.2",
+    "css-loader": "^6.7.3",
+    "eslint": "^8.34.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.27.5",
+    "jest": "^29.4.3",
+    "prettier": "2.8.4",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}
