@@ -1,19 +1,19 @@
-const Ship = (length) => {
-  const shipLength = length
-  let hitReceived = 0
+const Ship = (name, length) => {
+  const shipName = name;
+  const shipLength = length;
+  let hitReceived = 0;
   const hit = function () {
-    if (hitReceived === this.length) return
-    hitReceived +=1
-  }
+    if (hitReceived === shipLength) return;
+    hitReceived += 1;
+  };
   const isSunk = () => {
-    if (hitReceived === shipLength) return true
-    return false
-  }
-  const getLength = () => shipLength
+    if (hitReceived === shipLength) return true;
+    return false;
+  };
+  const getLength = () => shipLength;
+  const getName = () => shipName;
 
-  return {hit, isSunk, getLength}
-}
-
-
+  return { hit, isSunk, getLength, getName };
+};
 
 export default Ship;
