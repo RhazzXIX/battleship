@@ -137,13 +137,13 @@ test("GameBoard cannot be edited", () => {
   expect(playerBoard.showGameboard()[0][0]).toEqual({ shot: null });
 });
 
-test("Add a ship to the game board", () => {
+test("Place a ship to the game board", () => {
   playerBoard.placeShip([0, 0], "x");
   expect(!!playerBoard.showGameboard()[0][0].ship).toEqual(true);
   expect(!!playerBoard.showGameboard()[0][1].ship).toEqual(true);
 });
 
-test("Add a ship to the game board's x-axis", () => {
+test("Place a ship to the game board's x-axis", () => {
   playerBoard.placeShip([0, 0], "x");
   expect(!!playerBoard.showGameboard()[0][0].ship).toEqual(true);
   expect(!!playerBoard.showGameboard()[0][1].ship).toEqual(true);
@@ -154,7 +154,7 @@ test("Add a ship to the game board's x-axis", () => {
   expect(!!playerBoard.showGameboard()[1][0].ship).toEqual(false);
 });
 
-test("Add a ship to the game board's y-axis", () => {
+test("Place a ship to the game board's y-axis", () => {
   playerBoard.placeShip([0, 0], "y");
   expect(!!playerBoard.showGameboard()[0][0].ship).toEqual(true);
   expect(!!playerBoard.showGameboard()[1][0].ship).toEqual(true);
@@ -164,5 +164,23 @@ test("Add a ship to the game board's y-axis", () => {
   expect(!!playerBoard.showGameboard()[0][1].ship).toEqual(false);
   expect(!!playerBoard.showGameboard()[5][0].ship).toEqual(false);
 });
+
+test("Can place multiple different ships at the game board", () => {
+  playerBoard.placeShip([0, 0], 'x')
+  playerBoard.placeShip([3, 0], "x");
+  playerBoard.placeShip([2, 8], "y");
+  playerBoard.placeShip([6, 3], "y");
+  playerBoard.placeShip([7, 5], "x");
+  expect(playerBoard.showGameboard()[0][0].ship).toEqual('Commander');
+  expect(playerBoard.showGameboard()[0][4].ship).toEqual('Commander');
+  expect(playerBoard.showGameboard()[3][0].ship).toEqual('Battleship');
+  expect(playerBoard.showGameboard()[3][3].ship).toEqual('Battleship');
+  expect(playerBoard.showGameboard()[2][8].ship).toEqual('Destroyer');
+  expect(playerBoard.showGameboard()[4][8].ship).toEqual('Destroyer');
+  expect(playerBoard.showGameboard()[6][3].ship).toEqual('Submarine');
+  expect(playerBoard.showGameboard()[8][3].ship).toEqual('Submarine');
+  expect(playerBoard.showGameboard()[7][5].ship).toEqual('Patrol Boat');
+  expect(playerBoard.showGameboard()[7][6].ship).toEqual('Patrol Boat');
+})
 
 
