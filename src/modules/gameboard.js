@@ -1,11 +1,13 @@
 import Ship from "./ship";
 
 const Gameboard = () => {
-  const gameboard = [];
+  const gameBoard = [];
+
   const commander = Ship('Commander', 5);
   const battleship = Ship('Battleship', 4);
   const destroyer = Ship('Destroyer', 3);
-  const submarine = Ship('Submarine', 3)
+  const submarine = Ship('Submarine', 3);
+  const patrolBoat = Ship('Patrol Boat', 2);
   
   for (let i = 0; i < 10; i += 1) {
     const row = [];
@@ -13,12 +15,12 @@ const Gameboard = () => {
       const grid = { shot: null };
       row.push(grid);
     }
-    gameboard.push(row);
+    gameBoard.push(row);
   }
 
   const showGameboard = () => {
     const displayedGameboard = [];
-    gameboard.forEach(row => {
+    gameBoard.forEach(row => {
       const displayedRow = [];
       row.forEach(grid => {
         const diplayedGrid = {...grid}
@@ -29,12 +31,41 @@ const Gameboard = () => {
     return displayedGameboard;
   };
 
-  const placeShip = () => {
+  const spawnCoords = ([x,y], axis, length) => {
+    let xAxis = x;
+    let yAxis = y;
+    const coordinates = [[xAxis,yAxis]];
+    if (axis === 'x') {
+      for (let i = 1; i < length; i += 1) {
+        if (yAxis === 9) {
+          yAxis = 0;
+          xAxis += 1;
+        }
+        yAxis += 1;
+        const nextCoords = [xAxis,yAxis]
+        coordinates.push(nextCoords);
+      }
+    }
+    if (axis === 'y') {
+      for (let i = 1; i < length; i += 1) {
+        xAxis += 1
+        const nextCoords = [xAxis,yAxis]
+        coordinates.push(nextCoords);
+      }
+    }
+    return coordinates
+  }
 
+  const placeShip = (coords, axis) => {
+    const coordinates = spawnCoords(coords, axis, commander.getLength())
+    coordinates.forEach(coord => {
+      const [x,y] = [...coord]
+      gameBoard[x][y].ship = commander;
+    })
   }
 
   
-  return { showGameboard };
+  return { showGameboard, placeShip };
 };
 
 export default Gameboard;
