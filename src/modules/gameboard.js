@@ -9,9 +9,7 @@ const Gameboard = () => {
   const submarine = Ship("Submarine", 3);
   const patrolBoat = Ship("Patrol Boat", 2);
 
-  const allShips = [commander, battleship, destroyer, submarine, patrolBoat];
-
-  let placedShip = 0;
+  const placedShip = [];
 
   for (let i = 0; i < 10; i += 1) {
     const row = [];
@@ -58,7 +56,7 @@ const Gameboard = () => {
 
   const getShipInOrder = () => {
     let ship;
-    switch (placedShip) {
+    switch (placedShip.length) {
       case 1:
         ship = battleship;
         break;
@@ -111,7 +109,7 @@ const Gameboard = () => {
   };
 
   const placeShip = (coord, axis) => {
-    if (placedShip === 5) return;
+    if (placedShip.length === 5) return;
     const appropriateShip = getShipInOrder();
     const coordinates = spawnCoords(coord, axis, appropriateShip.getLength());
     const coordsOK = checkCoords(coordinates);
@@ -121,11 +119,11 @@ const Gameboard = () => {
       gameBoard[x][y].ship = appropriateShip.getName();
     });
 
-    placedShip += 1;
+    placedShip.push(appropriateShip);
   };
 
   const attackShip = (shipName) => {
-    allShips.forEach((ship) => {
+    placedShip.forEach((ship) => {
       if (ship.getName() === shipName) ship.hit();
     });
   };
@@ -141,15 +139,14 @@ const Gameboard = () => {
   };
 
   const reportShipsCondition = () => {
-    const sunkenShip = allShips.find(ship => ship.isSunk() === true)
-    if (!sunkenShip) return 
-    const message = `${sunkenShip.getName()} has been sank!`
-    const index = allShips.findIndex(ship => ship === sunkenShip)
-    allShips.splice(index, 1)
-    if (allShips.length === 0) return `All ships has been sank!`
+    const sunkenShip = placedShip.find((ship) => ship.isSunk() === true);
+    if (!sunkenShip) return;
+    const message = `${sunkenShip.getName()} has been sank!`;
+    const index = placedShip.findIndex((ship) => ship === sunkenShip);
+    placedShip.splice(index, 1);
+    if (placedShip.length === 0) return `All ships has been sank!`;
     return message;
-  }
-  
+  };
 
   return { showGameboard, placeShip, receiveAttack, reportShipsCondition };
 };
