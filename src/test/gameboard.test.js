@@ -198,3 +198,25 @@ test("Cannot place a ship out of bounds", () => {
   expect(playerBoard.showGameboard()[9][0].ship).toBeUndefined();
   expect(playerBoard.showGameboard()[9][1].ship).toEqual("Commander");
 });
+
+describe("Attack in the game board", () => {
+  beforeEach(() => {
+    playerBoard.placeShip([0, 0], "x");
+    playerBoard.placeShip([3, 0], "x");
+    playerBoard.placeShip([2, 8], "y");
+    playerBoard.placeShip([6, 3], "y");
+    playerBoard.placeShip([7, 5], "x");
+  });
+
+  test("Game board can receive attack", () => {
+    expect(playerBoard.showGameboard()[1][0].shot).toEqual(null);
+    playerBoard.receiveAttack([1, 0]);
+    expect(playerBoard.showGameboard()[1][0].shot).toEqual("missed");
+  });
+
+  test("Game board when it receive an attack, it can hit a ship", () => {
+    expect(playerBoard.showGameboard()[0][0].shot).toEqual(null);
+    playerBoard.receiveAttack([0, 0]);
+    expect(playerBoard.showGameboard()[0][0].shot).toEqual("hit");
+  });
+});

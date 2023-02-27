@@ -9,6 +9,14 @@ const Gameboard = () => {
   const submarine = Ship("Submarine", 3);
   const patrolBoat = Ship("Patrol Boat", 2);
 
+  const allShips = [
+    commander,
+    battleship,
+    destroyer,
+    submarine,
+    patrolBoat
+  ];
+
   let placedShip = 0;
 
   for (let i = 0; i < 10; i += 1) {
@@ -122,7 +130,25 @@ const Gameboard = () => {
     placedShip += 1;
   };
 
-  return { showGameboard, placeShip };
+
+  const attackShip = (shipName) => {
+    allShips.forEach(ship => {
+      if (ship.getName() === shipName) ship.hit();
+    })
+  }
+
+  const receiveAttack = (coord) => {
+    const [x, y] = [...coord];
+    const grid = gameBoard[x][y];
+    grid.shot = "missed";
+    if (grid.ship) {
+      grid.shot = "hit";
+      attackShip(grid.ship)
+    }
+  };
+
+
+  return { showGameboard, placeShip, receiveAttack };
 };
 
 export default Gameboard;
