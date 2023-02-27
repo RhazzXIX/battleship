@@ -33,23 +33,19 @@ const Gameboard = () => {
     return displayedGameboard;
   };
 
-  const spawnCoords = ([x, y], axis, length) => {
+  const spawnCoords = ([x, y], axis, shipLength) => {
     let xAxis = x;
     let yAxis = y;
     const coordinates = [[xAxis, yAxis]];
     if (axis === "x") {
-      for (let i = 1; i < length; i += 1) {
-        if (yAxis === 9) {
-          yAxis = 0;
-          xAxis += 1;
-        }
+      for (let i = 1; i < shipLength; i += 1) {
         yAxis += 1;
         const nextCoords = [xAxis, yAxis];
         coordinates.push(nextCoords);
       }
     }
     if (axis === "y") {
-      for (let i = 1; i < length; i += 1) {
+      for (let i = 1; i < shipLength; i += 1) {
         xAxis += 1;
         const nextCoords = [xAxis, yAxis];
         coordinates.push(nextCoords);
@@ -77,18 +73,53 @@ const Gameboard = () => {
         ship = commander;
     }
 
-    placedShip += 1;
     return ship;
   };
 
-  const placeShip = (coords, axis) => {
+  const checkCoords = (coords) => {
+    let gridOk;
+    coords.forEach((coord, i, arr) => {
+      const [x, y] = [...coord];
+      switch (true) {
+        case x < 0:
+          gridOk = false;
+          arr.splice(i);
+          return;
+        case y < 0:
+          gridOk = false;
+          arr.splice(i);
+          return;
+        case x > 9:
+          gridOk = false;
+          arr.splice(i);
+          return;
+        case y > 9:
+          gridOk = false;
+          arr.splice(i);
+          return;
+        default:
+          gridOk = true;
+      }
+      if (gameBoard[x][y].ship) {
+        gridOk = false;
+        arr.splice(i);
+      }
+    });
+    return gridOk;
+  };
+
+  const placeShip = (coord, axis) => {
     if (placedShip === 5) return;
     const appropriateShip = getShipInOrder();
-    const coordinates = spawnCoords(coords, axis, appropriateShip.getLength());
-    coordinates.forEach((coord) => {
-      const [x, y] = [...coord];
+    const coordinates = spawnCoords(coord, axis, appropriateShip.getLength());
+    const coordsOK = checkCoords(coordinates);
+    if (!coordsOK) return;
+    coordinates.forEach((grid) => {
+      const [x, y] = [...grid];
       gameBoard[x][y].ship = appropriateShip.getName();
     });
+
+    placedShip += 1;
   };
 
   return { showGameboard, placeShip };
