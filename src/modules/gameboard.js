@@ -9,13 +9,7 @@ const Gameboard = () => {
   const submarine = Ship("Submarine", 3);
   const patrolBoat = Ship("Patrol Boat", 2);
 
-  const allShips = [
-    commander,
-    battleship,
-    destroyer,
-    submarine,
-    patrolBoat
-  ];
+  const allShips = [commander, battleship, destroyer, submarine, patrolBoat];
 
   let placedShip = 0;
 
@@ -130,12 +124,11 @@ const Gameboard = () => {
     placedShip += 1;
   };
 
-
   const attackShip = (shipName) => {
-    allShips.forEach(ship => {
+    allShips.forEach((ship) => {
       if (ship.getName() === shipName) ship.hit();
-    })
-  }
+    });
+  };
 
   const receiveAttack = (coord) => {
     const [x, y] = [...coord];
@@ -143,12 +136,22 @@ const Gameboard = () => {
     grid.shot = "missed";
     if (grid.ship) {
       grid.shot = "hit";
-      attackShip(grid.ship)
+      attackShip(grid.ship);
     }
   };
 
+  const reportShipsCondition = () => {
+    const sunkenShip = allShips.find(ship => ship.isSunk() === true)
+    if (!sunkenShip) return 
+    const message = `${sunkenShip.getName()} has been sank!`
+    const index = allShips.findIndex(ship => ship === sunkenShip)
+    allShips.splice(index, 1)
+    if (allShips.length === 0) return `All ships has been sank!`
+    return message;
+  }
+  
 
-  return { showGameboard, placeShip, receiveAttack };
+  return { showGameboard, placeShip, receiveAttack, reportShipsCondition };
 };
 
 export default Gameboard;
