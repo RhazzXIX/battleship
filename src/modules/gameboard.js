@@ -131,12 +131,14 @@ const Gameboard = () => {
   const receiveAttack = (coord) => {
     const [x, y] = [...coord];
     const grid = gameBoard[x][y];
+    if (grid.shot !== null) return;
     grid.shot = "missed";
     if (grid.ship) {
       grid.shot = "hit";
       attackShip(grid.ship);
     }
   };
+
 
   const reportShipsCondition = () => {
     const sunkenShip = placedShip.find((ship) => ship.isSunk() === true);

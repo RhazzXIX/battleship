@@ -221,40 +221,60 @@ describe("Attack in the game board", () => {
   });
 
   test("Attacks can hit a ship and sink it", () => {
-    playerBoard.receiveAttack([0,0]);
-    playerBoard.receiveAttack([0,1]);
-    playerBoard.receiveAttack([0,2]);
-    playerBoard.receiveAttack([0,3]);
-    playerBoard.receiveAttack([0,4]);
-    expect(playerBoard.reportShipsCondition()).toEqual('Commander has been sank!')
+    playerBoard.receiveAttack([0, 0]);
+    playerBoard.receiveAttack([0, 1]);
+    playerBoard.receiveAttack([0, 2]);
+    playerBoard.receiveAttack([0, 3]);
+    playerBoard.receiveAttack([0, 4]);
+    expect(playerBoard.reportShipsCondition()).toEqual(
+      "Commander has been sank!"
+    );
     expect(playerBoard.reportShipsCondition()).toBeUndefined();
-    playerBoard.receiveAttack([7,6]);
-    playerBoard.receiveAttack([7,5]);
-    expect(playerBoard.reportShipsCondition()).toEqual('Patrol Boat has been sank!')
-  })
+    playerBoard.receiveAttack([7, 6]);
+    playerBoard.receiveAttack([7, 5]);
+    expect(playerBoard.reportShipsCondition()).toEqual(
+      "Patrol Boat has been sank!"
+    );
+  });
 
   test("If all ship sank, it will be reported", () => {
-    playerBoard.receiveAttack([0,0]);
-    playerBoard.receiveAttack([0,1]);
-    playerBoard.receiveAttack([0,2]);
-    playerBoard.receiveAttack([0,3]);
-    playerBoard.receiveAttack([0,4]);
-    expect(playerBoard.reportShipsCondition()).toEqual('Commander has been sank!')
-    playerBoard.receiveAttack([7,6]);
-    playerBoard.receiveAttack([7,5]);
-    expect(playerBoard.reportShipsCondition()).toEqual('Patrol Boat has been sank!')
-    playerBoard.receiveAttack([3,0]);
-    playerBoard.receiveAttack([3,2]);
-    playerBoard.receiveAttack([3,3]);
-    playerBoard.receiveAttack([3,1]);
-    expect(playerBoard.reportShipsCondition()).toEqual('Battleship has been sank!')
-    playerBoard.receiveAttack([2,8]);
-    playerBoard.receiveAttack([3,8]);
-    playerBoard.receiveAttack([4,8]);
-    expect(playerBoard.reportShipsCondition()).toEqual('Destroyer has been sank!')
-    playerBoard.receiveAttack([6,3]);
-    playerBoard.receiveAttack([7,3]);
-    playerBoard.receiveAttack([8,3]);
-    expect(playerBoard.reportShipsCondition()).toEqual('All ships has been sank!')
-  })
+    playerBoard.receiveAttack([0, 0]);
+    playerBoard.receiveAttack([0, 1]);
+    playerBoard.receiveAttack([0, 2]);
+    playerBoard.receiveAttack([0, 3]);
+    playerBoard.receiveAttack([0, 4]);
+    expect(playerBoard.reportShipsCondition()).toEqual(
+      "Commander has been sank!"
+    );
+    playerBoard.receiveAttack([7, 6]);
+    playerBoard.receiveAttack([7, 5]);
+    expect(playerBoard.reportShipsCondition()).toEqual(
+      "Patrol Boat has been sank!"
+    );
+    playerBoard.receiveAttack([3, 0]);
+    playerBoard.receiveAttack([3, 2]);
+    playerBoard.receiveAttack([3, 3]);
+    playerBoard.receiveAttack([3, 1]);
+    expect(playerBoard.reportShipsCondition()).toEqual(
+      "Battleship has been sank!"
+    );
+    playerBoard.receiveAttack([2, 8]);
+    playerBoard.receiveAttack([3, 8]);
+    playerBoard.receiveAttack([4, 8]);
+    expect(playerBoard.reportShipsCondition()).toEqual(
+      "Destroyer has been sank!"
+    );
+    playerBoard.receiveAttack([6, 3]);
+    playerBoard.receiveAttack([7, 3]);
+    playerBoard.receiveAttack([8, 3]);
+    expect(playerBoard.reportShipsCondition()).toEqual(
+      "All ships has been sank!"
+    );
+  });
+
+  test("You can't shoot the same coordinates again", () => {
+    playerBoard.receiveAttack([7, 6]);
+    playerBoard.receiveAttack([7, 6]);
+    expect(playerBoard.reportShipsCondition()).toBeUndefined();
+  });
 });
