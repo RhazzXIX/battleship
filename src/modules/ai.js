@@ -1,9 +1,18 @@
-import Gameboard from "./gameboard"
+import Gameboard from "./gameboard";
 
-const commanderAI = function () {
+const commanderAI = () => {
+  const generateCoords = () => {
+    const x = Math.floor(Math.random() * 10);
+    const y = Math.floor(Math.random() * 10);
+    return [x, y];
+  };
 
+  const enterCoords = (fn) => {
+    const coords = generateCoords();
+    fn(coords);
+  };
 
-  return {}
-}
+  return { enterCoords };
+};
 
-export default commanderAI
+export default commanderAI;
