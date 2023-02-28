@@ -138,13 +138,13 @@ test("GameBoard cannot be edited", () => {
 });
 
 test("Place a ship to the game board", () => {
-  playerBoard.placeShip([0, 0], "x");
+  expect(playerBoard.placeShip([0, 0], "x")).toEqual("Placed Commander");
   expect(!!playerBoard.showGameboard()[0][0].ship).toEqual(true);
   expect(!!playerBoard.showGameboard()[0][1].ship).toEqual(true);
 });
 
 test("Place a ship to the game board's x-axis", () => {
-  playerBoard.placeShip([0, 0], "x");
+  expect(playerBoard.placeShip([0, 0], "x")).toEqual("Placed Commander");
   expect(!!playerBoard.showGameboard()[0][0].ship).toEqual(true);
   expect(!!playerBoard.showGameboard()[0][1].ship).toEqual(true);
   expect(!!playerBoard.showGameboard()[0][2].ship).toEqual(true);
@@ -155,7 +155,7 @@ test("Place a ship to the game board's x-axis", () => {
 });
 
 test("Place a ship to the game board's y-axis", () => {
-  playerBoard.placeShip([0, 0], "y");
+  expect(playerBoard.placeShip([0, 0], "y")).toEqual("Placed Commander");
   expect(!!playerBoard.showGameboard()[0][0].ship).toEqual(true);
   expect(!!playerBoard.showGameboard()[1][0].ship).toEqual(true);
   expect(!!playerBoard.showGameboard()[2][0].ship).toEqual(true);
@@ -166,11 +166,13 @@ test("Place a ship to the game board's y-axis", () => {
 });
 
 test("Can place multiple different ships at the game board", () => {
-  playerBoard.placeShip([0, 0], "x");
-  playerBoard.placeShip([3, 0], "x");
-  playerBoard.placeShip([2, 8], "y");
-  playerBoard.placeShip([6, 3], "y");
-  playerBoard.placeShip([7, 5], "x");
+  expect(playerBoard.placeShip([0, 0], "x")).toEqual("Placed Commander");
+  expect(playerBoard.placeShip([3, 0], "x")).toEqual("Placed Battleship");
+  expect(playerBoard.placeShip([2, 8], "y")).toEqual("Placed Destroyer");
+  expect(playerBoard.placeShip([6, 3], "y")).toEqual("Placed Submarine");
+  expect(playerBoard.placeShip([7, 5], "x")).toEqual(
+    "All ships has been placed."
+  );
   expect(playerBoard.showGameboard()[0][0].ship).toEqual("Commander");
   expect(playerBoard.showGameboard()[0][4].ship).toEqual("Commander");
   expect(playerBoard.showGameboard()[3][0].ship).toEqual("Battleship");
@@ -185,18 +187,35 @@ test("Can place multiple different ships at the game board", () => {
 
 test("Cannot place a ship over other ships", () => {
   playerBoard.placeShip([0, 0], "x");
-  playerBoard.placeShip([0, 0], "y");
+  expect(playerBoard.placeShip([0, 0], "y")).toEqual(
+    "Check coordinates again."
+  );
   expect(playerBoard.showGameboard()[0][0].ship).toEqual("Commander");
   expect(playerBoard.showGameboard()[1][0].ship).toBeUndefined();
 });
 
 test("Cannot place a ship out of bounds", () => {
-  playerBoard.placeShip([0, 9], "x");
-  playerBoard.placeShip([9, 0], "y");
   playerBoard.placeShip([9, 1], "x");
+  expect(playerBoard.placeShip([0, 9], "x")).toEqual(
+    "Check coordinates again."
+  );
+  expect(playerBoard.placeShip([9, 0], "y")).toEqual(
+    "Check coordinates again."
+  );
   expect(playerBoard.showGameboard()[0][9].ship).toBeUndefined();
   expect(playerBoard.showGameboard()[9][0].ship).toBeUndefined();
   expect(playerBoard.showGameboard()[9][1].ship).toEqual("Commander");
+});
+
+test("Cannot place more than 5 ships", () => {
+  playerBoard.placeShip([0, 0], "x");
+  playerBoard.placeShip([3, 0], "x");
+  playerBoard.placeShip([2, 8], "y");
+  playerBoard.placeShip([6, 3], "y");
+  playerBoard.placeShip([7, 5], "x");
+  expect(playerBoard.placeShip([7, 5], "x")).toEqual(
+    "All ships has been placed."
+  );
 });
 
 describe("Attack in the game board", () => {

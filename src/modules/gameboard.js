@@ -109,17 +109,19 @@ const Gameboard = () => {
   };
 
   const placeShip = (coord, axis) => {
-    if (placedShip.length === 5) return;
+    if (placedShip.length === 5) return "All ships has been placed.";
     const appropriateShip = getShipInOrder();
     const coordinates = spawnCoords(coord, axis, appropriateShip.getLength());
     const coordsOK = checkCoords(coordinates);
-    if (!coordsOK) return;
+    if (!coordsOK) return "Check coordinates again.";
     coordinates.forEach((grid) => {
       const [x, y] = [...grid];
       gameBoard[x][y].ship = appropriateShip.getName();
     });
 
     placedShip.push(appropriateShip);
+    if (placedShip.length === 5) return "All ships has been placed.";
+    return `Placed ${appropriateShip.getName()}`;
   };
 
   const attackShip = (shipName) => {
@@ -138,7 +140,6 @@ const Gameboard = () => {
       attackShip(grid.ship);
     }
   };
-
 
   const reportShipsCondition = () => {
     const sunkenShip = placedShip.find((ship) => ship.isSunk() === true);
