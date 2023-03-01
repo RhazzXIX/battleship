@@ -130,28 +130,31 @@ const Gameboard = () => {
     });
   };
 
+  const reportAttackCondition = (grid) => {
+    if (!grid.ship) return grid.shot;
+    const vessel = placedShip.find((ship) => ship.getName() === grid.ship);
+    if (!vessel.isSunk()) return grid.shot;
+    let notice = `${vessel.getName()} has been sank!`;
+    const index = placedShip.findIndex((ship) => ship === vessel);
+    placedShip.splice(index, 1);
+    if (placedShip.length === 0) notice = `All ships has been sank!`;
+    return notice;
+  };
+
   const receiveAttack = (coord) => {
     const [x, y] = [...coord];
     const grid = gameBoard[x][y];
-    if (grid.shot !== null) return;
-    grid.shot = "missed";
+    if (grid.shot !== null) return null;
     if (grid.ship) {
       grid.shot = "hit";
       attackShip(grid.ship);
+    } else {
+      grid.shot = "miss";
     }
+    return reportAttackCondition(grid);
   };
 
-  const reportShipsCondition = () => {
-    const sunkenShip = placedShip.find((ship) => ship.isSunk() === true);
-    if (!sunkenShip) return;
-    const message = `${sunkenShip.getName()} has been sank!`;
-    const index = placedShip.findIndex((ship) => ship === sunkenShip);
-    placedShip.splice(index, 1);
-    if (placedShip.length === 0) return `All ships has been sank!`;
-    return message;
-  };
-
-  return { showGameboard, placeShip, receiveAttack, reportShipsCondition };
+  return { showGameboard, placeShip, receiveAttack };
 };
 
 export default Gameboard;
