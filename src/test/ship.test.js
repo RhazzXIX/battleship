@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-undef */
-import Ship from "../modules/ship";
+import Ship from "../modules/factories/ship";
 
 let commander
 

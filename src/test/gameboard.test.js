@@ -1,7 +1,7 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable no-shadow */
 /* eslint-disable no-undef */
-import Gameboard from "../modules/gameboard";
+import Gameboard from "../modules/factories/gameboard";
 
 let playerBoard;
 

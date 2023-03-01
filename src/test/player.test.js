@@ -1,6 +1,6 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable no-undef */
-import Player from "../modules/player";
+import Player from "../modules/factories/player";
 
 let player
 beforeEach(() => (player = Player('test')))

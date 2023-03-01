@@ -1,7 +1,7 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable no-shadow */
 /* eslint-disable no-undef */
-import commanderAI from "../modules/ai";
+import commanderAI from '../modules/factories/ai'
 
 const coordinates = [];
 const attackMock = jest.fn((x) => coordinates.push(x));
