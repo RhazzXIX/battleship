@@ -374,6 +374,10 @@ body {
   background-color: #99b5c3;
 }
 
+main {
+  position: relative
+}
+
 header,
 footer {
  display: flex;
@@ -394,8 +398,6 @@ header h1 {
 }
 
 section#start {
-  height: 100%;
-  width: 100%;
   display: flex;
   justify-content: center;
 }
@@ -403,22 +405,20 @@ section#start {
 form#player {
   display: flex;
   flex-direction: column;
-  margin-top: 80px;
+  margin-top: 76px;
   row-gap: 28px;
   align-items: center;
 }
 
+form#player >
 label {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-label p {
   font-size: 1.6rem;
   font-weight: 700;
 }
-
+ 
 label
 input {
   border-radius: 6px;
@@ -432,6 +432,44 @@ button {
   padding: 2px 8px;
   font-weight: 700;
   border-radius: 8px;
+}
+section#place {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+section#place
+div#plBoard {
+  display: grid;
+  grid-template-columns:  repeat(10, 22px);
+  grid-template-rows: repeat(10, 22px);
+  margin-top: 30px;
+  gap: 3px
+}
+
+section#place
+div div#grid {
+  background-color: aqua;
+  outline: 1px solid black;
+}
+
+section#place
+div div#grid.hit {
+  background-color: rgba(255, 0, 0, 0.7);
+}
+
+section#place
+div div#grid.miss {
+  background-color: rgba(0, 0, 255, 0.7);
+}
+
+
+section {
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 
 footer {
