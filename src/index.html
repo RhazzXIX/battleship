@@ -1,136 +1,343 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Battleship</title>
-</head>
-<body>
-  <header>
-    <h1>Battleship</h1>
-  </header>
-  <main>
-    <section id="start">
-      <form action="" method="get" id="player">
-        <label for="pName">
-          <p>Enter Player Name:</p>
-          <input type="text" name="name" id="pName" required/>
-        </label>
-        <button>Start Game!</button>
-      </form>
-    </section>
-    <section id="place">
-      <h2 class="notice"> Set your Commander</h2>
-      <button id="axis">Horizontal</button>
-      <div id="plBoard">
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="null"></div>
-        <div id="grid" class="hit"></div>
-        <div id="grid" class="miss"></div>
-      </div>
-    </section>
-  </main>
-  <footer>
-    <a href="https://github.com/RhazzXIX">
-      <img src="./images/GitHub-Mark-Light-32px.png" alt="GitHub">
-    </a>
-  </footer>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Battleship</title>
+  </head>
+  <body>
+    <header>
+      <h1>Battleship</h1>
+    </header>
+    <main>
+      <section id="start">
+        <form action="" method="get" id="player">
+          <label for="pName">
+            <p>Enter Player Name:</p>
+            <input type="text" name="name" id="pName" required />
+          </label>
+          <button>Start Game!</button>
+        </form>
+      </section>
+      <section id="place">
+        <h2 class="notice">Set your Commander</h2>
+        <button id="axis">Horizontal</button>
+        <div id="plBoard">
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid hit"></div>
+          <div class="grid miss"></div>
+        </div>
+      </section>
+      <section id="game">
+        <h2 id="notice">Test transmission...</h2>
+        <div class="board">
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid hit"></div>
+          <div class="grid miss"></div>
+        </div>
+        <div class="board">
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid null"></div>
+          <div class="grid hit"></div>
+          <div class="grid miss"></div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <a href="https://github.com/RhazzXIX">
+        <img src="./images/GitHub-Mark-Light-32px.png" alt="GitHub" />
+      </a>
+    </footer>
+  </body>
 </html>

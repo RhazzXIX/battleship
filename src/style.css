@@ -375,14 +375,14 @@ body {
 }
 
 main {
-  position: relative
+  position: relative;
 }
 
 header,
 footer {
- display: flex;
- align-items: center;
- justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 header {
@@ -397,8 +397,17 @@ header h1 {
   padding: 4px 8px;
 }
 
-section#start {
+
+section {
+  position: absolute;
+  height: 100%;
+  width: 100%;
   display: flex;
+  flex-direction: column;
+}
+
+
+section#start {
   justify-content: center;
 }
 
@@ -410,66 +419,87 @@ form#player {
   align-items: center;
 }
 
-form#player >
-label {
+form#player > label {
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: 1.6rem;
   font-weight: 700;
 }
- 
-label
-input {
+
+label input {
   border-radius: 6px;
   padding: 2px 6px;
   text-align: center;
 }
 
-form#player
-button {
+form#player button {
   width: fit-content;
   padding: 2px 8px;
   font-weight: 700;
   border-radius: 8px;
 }
+
 section#place {
-  display: flex;
-  flex-direction: column;
   align-items: center;
   padding-top: 20px;
 }
 
-section#place
-div#plBoard {
-  display: grid;
-  grid-template-columns:  repeat(10, 22px);
-  grid-template-rows: repeat(10, 22px);
+section#place div#plBoard {
+  grid-template-columns: repeat(10, 30px);
+  grid-template-rows: repeat(10, 30px);
   margin-top: 30px;
-  gap: 3px
+  gap: 3px;
 }
 
-section#place
-div div#grid {
-  background-color: aqua;
+section div#plBoard,
+section div.board {
+  display: grid;
+  gap: 3px;
+}
+
+section div div.grid {
   outline: 1px solid black;
+  background-color: aqua;
 }
 
-section#place
-div div#grid.hit {
+section#game div div.grid.hit {
   background-color: rgba(255, 0, 0, 0.7);
 }
 
-section#place
-div div#grid.miss {
+section#game div div.grid.miss {
   background-color: rgba(0, 0, 255, 0.7);
 }
 
+section#game {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 250px 1fr;
+  justify-items: center;
+}
 
-section {
-  position: absolute;
-  height: 100%;
-  width: 100%;
+section#game 
+h2#notice {
+  grid-column: 1 / -1;
+  align-self: center;
+  border: 1px solid rgb(173, 255, 173);
+  width: 500px;
+  height: 80px;
+  border-radius: 10px;
+  background-color: rgb(22, 58, 22);
+  color: rgb(241, 225, 134);
+  font-family: 'Courier New', Courier, monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 1px;
+}
+
+section#game
+div.board {
+  display: grid;
+  grid-template-columns: repeat(10, 18px);
+  grid-template-rows: repeat(10, 18px);
 }
 
 footer {
@@ -479,5 +509,3 @@ footer {
 footer a:hover {
   filter: drop-shadow(0 0 2px white);
 }
-
-
