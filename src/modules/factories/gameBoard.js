@@ -1,6 +1,6 @@
 import Ship from "./ship";
 
-const Gameboard = () => {
+const GameBoard = () => {
   const gameBoard = [];
 
   const commander = Ship("Commander", 5);
@@ -22,7 +22,7 @@ const Gameboard = () => {
     gameBoard.push(row);
   }
 
-  const showGameboard = () => {
+  const showGameBoard = () => {
     const displayedGameboard = [];
     gameBoard.forEach((row) => {
       const displayedRow = [];
@@ -167,7 +167,7 @@ const Gameboard = () => {
 
   const announce = () => announcement;
 
-  return { showGameboard, placeShip, receiveAttack, announce };
+  return { showGameBoard, placeShip, receiveAttack, announce };
 };
 
-export default Gameboard;
+export default GameBoard;

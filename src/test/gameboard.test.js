@@ -1,14 +1,14 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable no-shadow */
 /* eslint-disable no-undef */
-import Gameboard from "../modules/factories/gameboard";
+import GameBoard from "../modules/factories/gameBoard";
 
 let playerBoard;
 
-beforeEach(() => (playerBoard = Gameboard()));
+beforeEach(() => (playerBoard = GameBoard()));
 
-test("Gameboard can show a gameBoard", () => {
-  expect(playerBoard.showGameboard()).toEqual([
+test("GameBoard can show a gameBoard", () => {
+  expect(playerBoard.showGameBoard()).toEqual([
     [
       { shot: null },
       { shot: null },
@@ -133,11 +133,11 @@ test("Gameboard can show a gameBoard", () => {
 });
 
 test("GameBoard cannot be edited", () => {
-  playerBoard.showGameboard()[0][0].shot = "miss";
-  expect(playerBoard.showGameboard()[0][0]).toEqual({ shot: null });
+  playerBoard.showGameBoard()[0][0].shot = "miss";
+  expect(playerBoard.showGameBoard()[0][0]).toEqual({ shot: null });
 });
 
-test("Gameboard will now announce activities on the board", () => {
+test("GameBoard will now announce activities on the board", () => {
   expect(playerBoard.announce()).toEqual("");
   playerBoard.placeShip([0, 0], "x");
   expect(playerBoard.announce()).toEqual("Placed Commander");
@@ -183,9 +183,9 @@ test("Cannot place a ship out of bounds", () => {
   expect(playerBoard.announce()).toEqual("Check coordinates again.");
   playerBoard.placeShip([9, 0], "y");
   expect(playerBoard.announce()).toEqual("Check coordinates again.");
-  expect(playerBoard.showGameboard()[0][9].ship).toBeUndefined();
-  expect(playerBoard.showGameboard()[9][0].ship).toBeUndefined();
-  expect(playerBoard.showGameboard()[9][1].ship).toEqual("Commander");
+  expect(playerBoard.showGameBoard()[0][9].ship).toBeUndefined();
+  expect(playerBoard.showGameBoard()[9][0].ship).toBeUndefined();
+  expect(playerBoard.showGameBoard()[9][1].ship).toEqual("Commander");
 });
 
 test("Cannot place more than 5 ships", () => {
@@ -208,17 +208,17 @@ describe("Attack in the game board", () => {
   });
 
   test("Game board can receive attack", () => {
-    expect(playerBoard.showGameboard()[1][0].shot).toEqual(null);
+    expect(playerBoard.showGameBoard()[1][0].shot).toEqual(null);
     playerBoard.receiveAttack([1, 0]);
     expect(playerBoard.announce()).toEqual("miss");
-    expect(playerBoard.showGameboard()[1][0].shot).toEqual("miss");
+    expect(playerBoard.showGameBoard()[1][0].shot).toEqual("miss");
   });
 
   test("Game board when it receive an attack, it can hit a ship", () => {
-    expect(playerBoard.showGameboard()[0][0].shot).toEqual(null);
+    expect(playerBoard.showGameBoard()[0][0].shot).toEqual(null);
     playerBoard.receiveAttack([0, 0]);
     expect(playerBoard.announce()).toEqual("hit");
-    expect(playerBoard.showGameboard()[0][0].shot).toEqual("hit");
+    expect(playerBoard.showGameBoard()[0][0].shot).toEqual("hit");
   });
 
   test("If a ship was hit enough, it will be reported", () => {

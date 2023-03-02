@@ -1,5 +1,3 @@
-import Gameboard from "./gameboard";
-
 const commanderAI = () => {
   const attackCoordsEntered = [];
 
