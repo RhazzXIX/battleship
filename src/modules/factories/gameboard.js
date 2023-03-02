@@ -11,6 +11,8 @@ const Gameboard = () => {
 
   const placedShip = [];
 
+  let announcement = "";
+
   for (let i = 0; i < 10; i += 1) {
     const row = [];
     for (let j = 0; j < 10; j += 1) {
@@ -109,19 +111,25 @@ const Gameboard = () => {
   };
 
   const placeShip = (coord, axis) => {
-    if (placedShip.length === 5) return "All ships has been placed.";
+    if (placedShip.length === 5) return;
     const appropriateShip = getShipInOrder();
     const coordinates = spawnCoords(coord, axis, appropriateShip.getLength());
     const coordsOK = checkCoords(coordinates);
-    if (!coordsOK) return "Check coordinates again.";
+    if (!coordsOK) {
+      announcement = "Check coordinates again.";
+      return;
+    }
     coordinates.forEach((grid) => {
       const [x, y] = [...grid];
       gameBoard[x][y].ship = appropriateShip.getName();
     });
 
     placedShip.push(appropriateShip);
-    if (placedShip.length === 5) return "All ships has been placed.";
-    return `Placed ${appropriateShip.getName()}`;
+    if (placedShip.length === 5) {
+      announcement = "All ships has been placed.";
+    } else {
+      announcement = `Placed ${appropriateShip.getName()}`;
+    }
   };
 
   const attackShip = (shipName) => {
@@ -131,30 +139,35 @@ const Gameboard = () => {
   };
 
   const reportAttackCondition = (grid) => {
-    if (!grid.ship) return grid.shot;
+    announcement = grid.shot;
+    if (!grid.ship) return;
     const vessel = placedShip.find((ship) => ship.getName() === grid.ship);
-    if (!vessel.isSunk()) return grid.shot;
-    let notice = `${vessel.getName()} has been sank!`;
+    if (!vessel.isSunk()) return;
+    announcement = `${vessel.getName()} has been sank!`;
     const index = placedShip.findIndex((ship) => ship === vessel);
     placedShip.splice(index, 1);
-    if (placedShip.length === 0) notice = `All ships has been sank!`;
-    return notice;
+    if (placedShip.length === 0) announcement = `All ships has been sank!`;
   };
 
   const receiveAttack = (coord) => {
     const [x, y] = [...coord];
     const grid = gameBoard[x][y];
-    if (grid.shot !== null) return null;
+    if (grid.shot !== null) {
+      announcement = "Illegal shot!";
+      return;
+    }
     if (grid.ship) {
       grid.shot = "hit";
       attackShip(grid.ship);
     } else {
       grid.shot = "miss";
     }
-    return reportAttackCondition(grid);
+    reportAttackCondition(grid);
   };
 
-  return { showGameboard, placeShip, receiveAttack };
+  const announce = () => announcement;
+
+  return { showGameboard, placeShip, receiveAttack, announce };
 };
 
 export default Gameboard;

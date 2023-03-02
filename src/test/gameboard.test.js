@@ -137,71 +137,52 @@ test("GameBoard cannot be edited", () => {
   expect(playerBoard.showGameboard()[0][0]).toEqual({ shot: null });
 });
 
+test("Gameboard will now announce activities on the board", () => {
+  expect(playerBoard.announce()).toEqual("");
+  playerBoard.placeShip([0, 0], "x");
+  expect(playerBoard.announce()).toEqual("Placed Commander");
+});
+
 test("Place a ship to the game board", () => {
-  expect(playerBoard.placeShip([0, 0], "x")).toEqual("Placed Commander");
-  expect(!!playerBoard.showGameboard()[0][0].ship).toEqual(true);
-  expect(!!playerBoard.showGameboard()[0][1].ship).toEqual(true);
+  playerBoard.placeShip([0, 0], "x");
+  expect(playerBoard.announce()).toEqual("Placed Commander");
 });
 
 test("Place a ship to the game board's x-axis", () => {
-  expect(playerBoard.placeShip([0, 0], "x")).toEqual("Placed Commander");
-  expect(!!playerBoard.showGameboard()[0][0].ship).toEqual(true);
-  expect(!!playerBoard.showGameboard()[0][1].ship).toEqual(true);
-  expect(!!playerBoard.showGameboard()[0][2].ship).toEqual(true);
-  expect(!!playerBoard.showGameboard()[0][3].ship).toEqual(true);
-  expect(!!playerBoard.showGameboard()[0][4].ship).toEqual(true);
-  expect(!!playerBoard.showGameboard()[0][5].ship).toEqual(false);
-  expect(!!playerBoard.showGameboard()[1][0].ship).toEqual(false);
+  playerBoard.placeShip([0, 0], "x");
+  expect(playerBoard.announce()).toEqual("Placed Commander");
 });
 
 test("Place a ship to the game board's y-axis", () => {
-  expect(playerBoard.placeShip([0, 0], "y")).toEqual("Placed Commander");
-  expect(!!playerBoard.showGameboard()[0][0].ship).toEqual(true);
-  expect(!!playerBoard.showGameboard()[1][0].ship).toEqual(true);
-  expect(!!playerBoard.showGameboard()[2][0].ship).toEqual(true);
-  expect(!!playerBoard.showGameboard()[3][0].ship).toEqual(true);
-  expect(!!playerBoard.showGameboard()[4][0].ship).toEqual(true);
-  expect(!!playerBoard.showGameboard()[0][1].ship).toEqual(false);
-  expect(!!playerBoard.showGameboard()[5][0].ship).toEqual(false);
+  playerBoard.placeShip([0, 0], "y");
+  expect(playerBoard.announce()).toEqual("Placed Commander");
 });
 
 test("Can place multiple different ships at the game board", () => {
-  expect(playerBoard.placeShip([0, 0], "x")).toEqual("Placed Commander");
-  expect(playerBoard.placeShip([3, 0], "x")).toEqual("Placed Battleship");
-  expect(playerBoard.placeShip([2, 8], "y")).toEqual("Placed Destroyer");
-  expect(playerBoard.placeShip([6, 3], "y")).toEqual("Placed Submarine");
-  expect(playerBoard.placeShip([7, 5], "x")).toEqual(
-    "All ships has been placed."
-  );
-  expect(playerBoard.showGameboard()[0][0].ship).toEqual("Commander");
-  expect(playerBoard.showGameboard()[0][4].ship).toEqual("Commander");
-  expect(playerBoard.showGameboard()[3][0].ship).toEqual("Battleship");
-  expect(playerBoard.showGameboard()[3][3].ship).toEqual("Battleship");
-  expect(playerBoard.showGameboard()[2][8].ship).toEqual("Destroyer");
-  expect(playerBoard.showGameboard()[4][8].ship).toEqual("Destroyer");
-  expect(playerBoard.showGameboard()[6][3].ship).toEqual("Submarine");
-  expect(playerBoard.showGameboard()[8][3].ship).toEqual("Submarine");
-  expect(playerBoard.showGameboard()[7][5].ship).toEqual("Patrol Boat");
-  expect(playerBoard.showGameboard()[7][6].ship).toEqual("Patrol Boat");
+  playerBoard.placeShip([0, 0], "x");
+  expect(playerBoard.announce()).toEqual("Placed Commander");
+  playerBoard.placeShip([3, 0], "x");
+  expect(playerBoard.announce()).toEqual("Placed Battleship");
+  playerBoard.placeShip([2, 8], "y");
+  expect(playerBoard.announce()).toEqual("Placed Destroyer");
+  playerBoard.placeShip([6, 3], "y");
+  expect(playerBoard.announce()).toEqual("Placed Submarine");
+  playerBoard.placeShip([7, 5], "x");
+  expect(playerBoard.announce()).toEqual("All ships has been placed.");
 });
 
 test("Cannot place a ship over other ships", () => {
   playerBoard.placeShip([0, 0], "x");
-  expect(playerBoard.placeShip([0, 0], "y")).toEqual(
-    "Check coordinates again."
-  );
-  expect(playerBoard.showGameboard()[0][0].ship).toEqual("Commander");
-  expect(playerBoard.showGameboard()[1][0].ship).toBeUndefined();
+  playerBoard.placeShip([0, 0], "y");
+  expect(playerBoard.announce()).toEqual("Check coordinates again.");
 });
 
 test("Cannot place a ship out of bounds", () => {
   playerBoard.placeShip([9, 1], "x");
-  expect(playerBoard.placeShip([0, 9], "x")).toEqual(
-    "Check coordinates again."
-  );
-  expect(playerBoard.placeShip([9, 0], "y")).toEqual(
-    "Check coordinates again."
-  );
+  playerBoard.placeShip([0, 9], "x");
+  expect(playerBoard.announce()).toEqual("Check coordinates again.");
+  playerBoard.placeShip([9, 0], "y");
+  expect(playerBoard.announce()).toEqual("Check coordinates again.");
   expect(playerBoard.showGameboard()[0][9].ship).toBeUndefined();
   expect(playerBoard.showGameboard()[9][0].ship).toBeUndefined();
   expect(playerBoard.showGameboard()[9][1].ship).toEqual("Commander");
@@ -213,9 +194,8 @@ test("Cannot place more than 5 ships", () => {
   playerBoard.placeShip([2, 8], "y");
   playerBoard.placeShip([6, 3], "y");
   playerBoard.placeShip([7, 5], "x");
-  expect(playerBoard.placeShip([7, 5], "x")).toEqual(
-    "All ships has been placed."
-  );
+  playerBoard.placeShip([7, 5], "x");
+  expect(playerBoard.announce()).toEqual("All ships has been placed.");
 });
 
 describe("Attack in the game board", () => {
@@ -229,13 +209,15 @@ describe("Attack in the game board", () => {
 
   test("Game board can receive attack", () => {
     expect(playerBoard.showGameboard()[1][0].shot).toEqual(null);
-    expect(playerBoard.receiveAttack([1, 0])).toEqual("miss");
+    playerBoard.receiveAttack([1, 0]);
+    expect(playerBoard.announce()).toEqual("miss");
     expect(playerBoard.showGameboard()[1][0].shot).toEqual("miss");
   });
 
   test("Game board when it receive an attack, it can hit a ship", () => {
     expect(playerBoard.showGameboard()[0][0].shot).toEqual(null);
-    expect(playerBoard.receiveAttack([0, 0])).toEqual("hit");
+    playerBoard.receiveAttack([0, 0]);
+    expect(playerBoard.announce()).toEqual("hit");
     expect(playerBoard.showGameboard()[0][0].shot).toEqual("hit");
   });
 
@@ -244,37 +226,34 @@ describe("Attack in the game board", () => {
     playerBoard.receiveAttack([0, 1]);
     playerBoard.receiveAttack([0, 2]);
     playerBoard.receiveAttack([0, 3]);
-    expect(playerBoard.receiveAttack([0, 4])).toEqual(
-      "Commander has been sank!"
-    );
+    playerBoard.receiveAttack([0, 4]);
+    expect(playerBoard.announce()).toEqual("Commander has been sank!");
 
     playerBoard.receiveAttack([7, 6]);
-    expect(playerBoard.receiveAttack([7, 5])).toEqual(
-      "Patrol Boat has been sank!"
-    );
+    playerBoard.receiveAttack([7, 5]);
+    expect(playerBoard.announce()).toEqual("Patrol Boat has been sank!");
 
     playerBoard.receiveAttack([3, 0]);
     playerBoard.receiveAttack([3, 2]);
     playerBoard.receiveAttack([3, 3]);
-    expect(playerBoard.receiveAttack([3, 1])).toEqual(
-      "Battleship has been sank!"
-    );
+    playerBoard.receiveAttack([3, 1]);
+    expect(playerBoard.announce()).toEqual("Battleship has been sank!");
 
     playerBoard.receiveAttack([2, 8]);
     playerBoard.receiveAttack([3, 8]);
-    expect(playerBoard.receiveAttack([4, 8])).toEqual(
-      "Destroyer has been sank!"
-    );
+    playerBoard.receiveAttack([4, 8]);
+    expect(playerBoard.announce()).toEqual("Destroyer has been sank!");
 
     playerBoard.receiveAttack([6, 3]);
     playerBoard.receiveAttack([7, 3]);
-    expect(playerBoard.receiveAttack([8, 3])).toEqual(
-      "All ships has been sank!"
-    );
+    playerBoard.receiveAttack([8, 3]);
+    expect(playerBoard.announce()).toEqual("All ships has been sank!");
   });
 
   test("You can't shoot the same coordinates again", () => {
-    expect(playerBoard.receiveAttack([7, 6])).toBe("hit");
-    expect(playerBoard.receiveAttack([7, 6])).toBe(null);
+    playerBoard.receiveAttack([7, 6]);
+    expect(playerBoard.announce()).toBe("hit");
+    playerBoard.receiveAttack([7, 6]);
+    expect(playerBoard.announce()).toBe("Illegal shot!");
   });
 });
