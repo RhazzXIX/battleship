@@ -504,6 +504,10 @@ section#notice {
   gap: 30px;
 }
 
+section.hidden {
+  visibility: hidden;
+}
+
 footer {
   background-color: black;
 }
