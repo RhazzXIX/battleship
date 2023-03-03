@@ -397,18 +397,12 @@ header h1 {
   padding: 4px 8px;
 }
 
-
 section {
   position: absolute;
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
-}
-
-
-section#start {
-  justify-content: center;
 }
 
 form#player {
@@ -458,27 +452,28 @@ section div.board {
   gap: 3px;
 }
 
-section div div.grid {
+section div button.grid {
+  border: 0;
   outline: 1px solid black;
   background-color: aqua;
 }
 
-section#game div div.grid.hit {
+section#game div button.grid.hit {
   background-color: rgba(255, 0, 0, 0.7);
 }
 
-section#game div div.grid.miss {
+section#game div button.grid.miss {
   background-color: rgba(0, 0, 255, 0.7);
 }
 
 section#game {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 250px 1fr;
+  /* grid-template-rows: 250px 1fr; */
   justify-items: center;
 }
 
-section#game 
+/* section#game 
 h2#notice {
   grid-column: 1 / -1;
   align-self: center;
@@ -493,10 +488,10 @@ h2#notice {
   align-items: center;
   justify-content: center;
   letter-spacing: 1px;
-}
+} */
 
-section#game
-div.board {
+section#game div.board {
+  margin-top: 140px;
   display: grid;
   grid-template-columns: repeat(10, 18px);
   grid-template-rows: repeat(10, 18px);
