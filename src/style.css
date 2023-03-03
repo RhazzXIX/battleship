@@ -497,6 +497,13 @@ section#game div.board {
   grid-template-rows: repeat(10, 18px);
 }
 
+section#notice {
+  background-color: rgba(255, 254, 254, 0.3);
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
 footer {
   background-color: black;
 }
