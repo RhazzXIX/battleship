@@ -1,5 +1,6 @@
 const commanderAI = () => {
   const attackCoordsEntered = [];
+  let turn = false;
 
   const generateCoords = () => {
     const x = Math.floor(Math.random() * 10);
@@ -23,19 +24,28 @@ const commanderAI = () => {
     return entered;
   };
 
-  const enterCoords = (fn) => {
+  const enterCoords = (enemyBoard, playerTurn) => {
+    if (turn === false) return;
     if (attackCoordsEntered.length === 100) return;
     const coords = generateCoords();
     const entered = checkCoordinates(coords);
     if (!entered) {
       attackCoordsEntered.push(coords);
-      fn(coords);
+      enemyBoard(coords);
+      turn = false;
+      playerTurn();
     } else if (entered) {
-      enterCoords(fn);
+      enterCoords(enemyBoard);
     }
   };
 
-  return { enterCoords };
+  const showTurn = () => turn;
+
+  const startTurn = () => {
+    turn = true;
+  };
+
+  return { enterCoords, showTurn, startTurn };
 };
 
 export default commanderAI;
