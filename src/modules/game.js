@@ -7,7 +7,6 @@ const Game = () => {
   const comp = commanderAI();
   const playerBoard = GameBoard();
   const compBoard = GameBoard();
-  let turn = "player";
   let message;
 
   const gameboards = {
@@ -28,7 +27,7 @@ const Game = () => {
   compBoard.placeShip([7, 5], "x");
 
   const setPlayer = (name) => {
-    if (!player) return;
+    if (player !== undefined) return;
     player = Player(name);
   };
 
@@ -41,24 +40,18 @@ const Game = () => {
   };
 
   const playerAttack = (coords) => {
-    if (turn === "comp") return;
-    compBoard.receiveAttack(coords);
+    if (player.showTurn() === false) return;
+    player.attackBoard(coords, compBoard.receiveAttack, comp.startTurn);
     message = compBoard.announce();
-    turn = "comp";
   };
 
   const compAttack = () => {
-    if (turn === "player") return;
-    comp.enterCoords(playerBoard.receiveAttack);
+    if (comp.showTurn() === false) return;
+    comp.enterCoords(playerBoard.receiveAttack, player.startTurn);
     message = playerBoard.announce();
-    turn = "player";
   };
 
   const attack = (coords) => {
-    if (turn === "comp") {
-      message = `It's computer's turn.`;
-      return;
-    }
     playerAttack(coords);
     compAttack();
   };
