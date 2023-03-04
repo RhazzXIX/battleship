@@ -450,19 +450,24 @@ section div#plBoard,
 section div.board {
   display: grid;
   gap: 3px;
+  outline: 2px solid black;
 }
 
-section div button.grid {
+section div div.grid {
   border: 0;
   outline: 1px solid black;
   background-color: aqua;
 }
 
-section#game div button.grid.hit {
+section div div.grid.ship {
+  background-color: #90a3b4;
+}
+
+section#game div div.grid.hit {
   background-color: rgba(255, 0, 0, 0.7);
 }
 
-section#game div button.grid.miss {
+section#game div div.grid.miss {
   background-color: rgba(0, 0, 255, 0.7);
 }
 
