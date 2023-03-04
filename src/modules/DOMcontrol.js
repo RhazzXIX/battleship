@@ -1,3 +1,6 @@
+import { default as attachDivGrid, removeGrid } from './doms/divBoard'
+import Game from './game'
+
 const controlDOM = (() => {
   const body = document.querySelector("body");
 
@@ -18,13 +21,23 @@ const controlDOM = (() => {
   const winnerNotice = noticeSection.querySelector("h2#announce");
   const restartBtn = noticeSection.querySelector("button#restart");
 
-  // main.removeChild(startSection);
-  main.removeChild(placeShipSection);
-  placeShipBoard.classList.remove("hidden");
+  main.removeChild(startSection);
+  // main.removeChild(placeShipSection);
+  placeShipSection.classList.remove("hidden");
   main.removeChild(gameSection);
   gameSection.classList.remove("hidden");
   body.removeChild(noticeSection);
   noticeSection.classList.remove("hidden");
+
+  const game = Game();
+  const boards = game.getGameBoard();
+  game.setPlayer('test');
+  attachDivGrid(placeShipBoard, boards.player, 'player');
+
+  // setTimeout(() => {
+  //   removeGrid(placeShipBoard);
+  // }, 2000);
+
 })();
 
 export default controlDOM;
