@@ -8,6 +8,8 @@ const Game = () => {
   const playerBoard = GameBoard();
   const compBoard = GameBoard();
   let message;
+  let winner;
+  let callWinner = false;
 
   const gameboards = {
     player: playerBoard.showGameBoard(),
@@ -43,25 +45,40 @@ const Game = () => {
     if (player.showTurn() === false) return;
     player.attackBoard(coords, compBoard.receiveAttack, comp.startTurn);
     message = compBoard.announce();
+    if (compBoard.announce() === "All ships has been sank!")
+      winner = player.showName();
   };
 
   const compAttack = () => {
     if (comp.showTurn() === false) return;
     comp.enterCoords(playerBoard.receiveAttack, player.startTurn);
     message = playerBoard.announce();
+    if (playerBoard.announce() === "All ships has been sank!")
+      winner = "Commander A.I.";
   };
 
   const attack = (coords) => {
+    if (winner) return;
     playerAttack(coords);
+    if (winner) return;
     compAttack();
   };
 
-  // const showMessage = () => {
-  //   if (!message) return null
-  //   return message;
-  // }
+  const showMessage = () => {
+    if (!message) return null;
+    if (winner) {
+      if (!callWinner) {
+        callWinner = true;
+        return message;
+      }
+      message = `${player.showName()} is the winner!`;
+      return message;
+    }
 
-  return { setPlayer, getGameBoard, attack };
+    return message;
+  };
+
+  return { setPlayer, getGameBoard, attack, showMessage };
 };
 
 export default Game;
