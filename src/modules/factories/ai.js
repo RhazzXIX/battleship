@@ -35,7 +35,7 @@ const commanderAI = () => {
       turn = false;
       playerTurn();
     } else if (entered) {
-      enterCoords(enemyBoard);
+      enterCoords(enemyBoard, playerTurn);
     }
   };
 
