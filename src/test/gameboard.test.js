@@ -251,9 +251,9 @@ describe("Attack in the game board", () => {
   });
 
   test("You can't shoot the same coordinates again", () => {
-    playerBoard.receiveAttack([7, 6]);
+    expect(playerBoard.receiveAttack([7, 6])).toEqual(true);
     expect(playerBoard.announce()).toBe("hit");
-    playerBoard.receiveAttack([7, 6]);
+    expect(playerBoard.receiveAttack([7, 6])).toEqual(false);
     expect(playerBoard.announce()).toBe("Illegal shot!");
   });
 });

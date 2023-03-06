@@ -8,8 +8,9 @@ const Player = (name) => {
   const showTurn = () => turn;
 
   const attackBoard = (coords, board, enemyTurn) => {
+    const notOK = false;
     if (turn === false) return;
-    board(coords);
+    if (board(coords) === notOK) return;
     turn = false;
     enemyTurn();
   };

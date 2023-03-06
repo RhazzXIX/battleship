@@ -151,10 +151,12 @@ const GameBoard = () => {
 
   const receiveAttack = (coord) => {
     const [x, y] = [...coord];
+    let attackReceived = true;
     const grid = gameBoard[x][y];
     if (grid.shot !== null) {
+      attackReceived = false;
       announcement = "Illegal shot!";
-      return;
+      return attackReceived;
     }
     if (grid.ship) {
       grid.shot = "hit";
@@ -163,6 +165,7 @@ const GameBoard = () => {
       grid.shot = "miss";
     }
     reportAttackCondition(grid);
+    return attackReceived;
   };
 
   const announce = () => announcement;

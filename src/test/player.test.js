@@ -50,3 +50,20 @@ test("Player can have their turn", () => {
   player.attackBoard(coord, enemyBoard, enemyTurn);
   expect(enemyBoard.mock.calls).toHaveLength(2);
 });
+
+test("The player wont call the enemy turn if he didn't attack legally", () => {
+  enemyBoard.mockReturnValueOnce(true);
+  enemyBoard.mockReturnValueOnce(false);
+  expect(player.showTurn()).toEqual(true);
+  player.attackBoard(coord, enemyBoard, enemyTurn);
+  expect(enemyBoard.mock.calls).toHaveLength(1);
+  expect(enemyBoard.mock.calls[0][0]).toEqual(coord);
+  expect(enemyTurn.mock.calls).toHaveLength(1);
+  expect(player.showTurn()).toEqual(false);
+  player.startTurn();
+  player.attackBoard([0, 1], enemyBoard, enemyTurn);
+  expect(enemyBoard.mock.calls).toHaveLength(2);
+  expect(enemyBoard.mock.calls[0][0]).toEqual(coord);
+  expect(enemyTurn.mock.calls).toHaveLength(1);
+  expect(player.showTurn()).toEqual(true);
+});
