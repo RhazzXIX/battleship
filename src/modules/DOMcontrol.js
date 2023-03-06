@@ -1,5 +1,6 @@
-import { default as attachDivGrid, removeGrid } from './doms/divBoard'
-import Game from './game'
+import { default as attachDivGrid, removeGrid } from "./doms/divBoard";
+import Game from "./game";
+import parseGridCoords from "./doms/parseGridCoords";
 
 const controlDOM = (() => {
   const body = document.querySelector("body");
@@ -22,22 +23,50 @@ const controlDOM = (() => {
   const restartBtn = noticeSection.querySelector("button#restart");
 
   main.removeChild(startSection);
-  // main.removeChild(placeShipSection);
+  main.removeChild(placeShipSection);
   placeShipSection.classList.remove("hidden");
-  main.removeChild(gameSection);
+  // main.removeChild(gameSection);
   gameSection.classList.remove("hidden");
   body.removeChild(noticeSection);
   noticeSection.classList.remove("hidden");
 
   const game = Game();
   const boards = game.getGameBoard();
-  game.setPlayer('test');
-  attachDivGrid(placeShipBoard, boards.player, 'player');
+  game.setPlayer("test");
+  attachDivGrid(gamePlBoard, boards.player, "player");
+  attachDivGrid(gameCompBoard, boards.comp);
+
+  const gridClickEvent = (index) => {
+    const coord = parseGridCoords(index);
+    game.attack(coord);
+    removeGrid(gamePlBoard);
+    attachDivGrid(gamePlBoard, game.getGameBoard().player, "player");
+    removeGrid(gameCompBoard);
+    attachDivGrid(gameCompBoard, game.getGameBoard().comp);
+  };
+
+  function addGridClickEvent() {
+    const compGrids = gameCompBoard.querySelectorAll("div.grid");
+    compGrids.forEach((grid, j) => {
+      grid.addEventListener("click", () => {
+        gridClickEvent(j);
+        addGridClickEvent();
+      });
+    });
+  }
+
+  addGridClickEvent(
+    gameCompBoard,
+    gamePlBoard,
+    boards,
+    game.attack,
+    removeGrid,
+    attachDivGrid
+  );
 
   // setTimeout(() => {
   //   removeGrid(placeShipBoard);
   // }, 2000);
-
 })();
 
 export default controlDOM;
