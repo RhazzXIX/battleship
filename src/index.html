@@ -21,9 +21,39 @@
         </form>
       </section>
       <section id="place" class="hidden">
-        <h2 class="notice">Set your Commander</h2>
+        <h2 class="notice">Set your Ships</h2>
         <button id="axis">Horizontal</button>
         <div id="plBoard"></div>
+        <div id="selection">
+          <div class="shipHolder" id="commander" draggable="true">
+            <div class="grid ship"></div>
+            <div class="grid ship"></div>
+            <div class="grid ship"></div>
+            <div class="grid ship"></div>
+            <div class="grid ship"></div>
+          </div>
+          <div class="shipHolder" id="battleship" draggable="true">
+            <div class="grid ship"></div>
+            <div class="grid ship"></div>
+            <div class="grid ship"></div>
+            <div class="grid ship"></div>
+          </div>
+          <div class="shipHolder" id="destroyer" draggable="true">
+            <div class="grid ship"></div>
+            <div class="grid ship"></div>
+            <div class="grid ship"></div>
+          </div>
+          <div class="shipHolder" id="submarine" draggable="true">
+            <div class="grid ship"></div>
+            <div class="grid ship"></div>
+            <div class="grid ship"></div>
+          </div>
+          <div class="shipHolder" id="patrolBoat" draggable="true">
+            <div class="grid ship"></div>
+            <div class="grid ship"></div>
+          </div>
+          <button id="battle">Start battle!</button>
+        </div>
       </section>
       <section id="game" class="hidden">
         <!-- <h2 id="notice">Test transmission...</h2> -->
