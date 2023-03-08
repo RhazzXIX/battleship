@@ -49,12 +49,34 @@ const controlDOM = (() => {
 
   const game = Game();
   let getBoards;
+  let axis = "x";
 
   // Functions for DOM control
 
   const updateGameBoard = () => {
     getBoards = game.getGameBoard();
   };
+
+  function changeAxis(e) {
+    console.log(axis);
+    e.stopPropagation();
+    if (axis === "x") {
+      axis = "y";
+    } else {
+      axis = "x";
+    }
+    if (axisBtn.textContent === "Horizontal") {
+      axisBtn.textContent = "Vertical";
+    } else {
+      axisBtn.textContent = "Horizontal";
+    }
+    domCommander.classList.toggle("axisY");
+    domBattleship.classList.toggle("axisY");
+    domDestroyer.classList.toggle("axisY");
+    domSubmarine.classList.toggle("axisY");
+    domPatrolBoat.classList.toggle("axisY");
+    battleBtn.classList.toggle("axisY");
+  }
 
   const gridClickEvent = (index) => {
     const coord = parseGridCoords(index);
@@ -92,6 +114,7 @@ const controlDOM = (() => {
   // Eventlisteners
 
   playerForm.addEventListener("submit", loadGame);
+  axisBtn.addEventListener("click", changeAxis);
 
   // startBtn.addEventListener("click", startGame);
 
