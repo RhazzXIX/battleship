@@ -1,6 +1,6 @@
 import { default as attachDivGrid, removeGrid } from "./helpers/divBoard";
 import Game from "./game";
-import parseGridCoords from "./helpers/parseGridCoords";
+import parseGridCoords from "./helpers/coordinatesHandler";
 
 const controlDOM = (() => {
   // DOM nodes

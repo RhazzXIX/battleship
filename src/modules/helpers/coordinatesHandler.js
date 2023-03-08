@@ -9,4 +9,13 @@ const parseGridCoords = (index) => {
   return [x, y];
 };
 
+
+const generateCoords = () => {
+  const x = Math.floor(Math.random() * 10);
+  const y = Math.floor(Math.random() * 10);
+  return [x, y];
+};
+
+
 export default parseGridCoords;
+export { generateCoords }

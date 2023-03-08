@@ -1,12 +1,8 @@
+import { generateCoords } from "../helpers/coordinatesHandler";
+
 const commanderAI = () => {
   const attackCoordsEntered = [];
   let turn = false;
-
-  const generateCoords = () => {
-    const x = Math.floor(Math.random() * 10);
-    const y = Math.floor(Math.random() * 10);
-    return [x, y];
-  };
 
   const checkCoordinates = (coords) => {
     let entered = false;
