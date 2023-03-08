@@ -25,6 +25,8 @@ const controlDOM = (() => {
   const restartBtn = noticeSection.querySelector("button#restart");
 
   // Initial Load
+
+  // main.removeChild(startSection);
   main.removeChild(placeShipSection);
   placeShipSection.classList.remove("hidden");
   main.removeChild(gameSection);
@@ -33,17 +35,23 @@ const controlDOM = (() => {
   noticeSection.classList.remove("hidden");
 
   const game = Game();
-  let boards;
+  let getBoards;
 
   // Functions for DOM control
+
+  const updateGameBoard = () => {
+    getBoards = game.getGameBoard();
+  };
 
   const gridClickEvent = (index) => {
     const coord = parseGridCoords(index);
     game.attack(coord);
+    updateGameBoard();
     removeGrid(gamePlBoard);
-    attachDivGrid(gamePlBoard, game.getGameBoard().player, "player");
+    attachDivGrid(gamePlBoard, getBoards.player, "player");
     removeGrid(gameCompBoard);
-    attachDivGrid(gameCompBoard, game.getGameBoard().comp);
+    attachDivGrid(gameCompBoard, getBoards.comp);
+    console.log(game.showMessage());
   };
 
   function addGridClickEvent() {
@@ -61,8 +69,8 @@ const controlDOM = (() => {
     event.preventDefault();
     event.stopPropagation();
     game.setPlayer(playerInput.value);
-    boards = game.getGameBoard();
-    attachDivGrid(placeShipBoard, boards.player, "player");
+    updateGameBoard();
+    attachDivGrid(placeShipBoard, getBoards.player, "player");
     main.removeChild(startSection);
     main.appendChild(placeShipSection);
     playerInput.value = "";
