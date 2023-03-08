@@ -15,6 +15,13 @@ const controlDOM = (() => {
   const placeShipSection = main.querySelector("section#place");
   const axisBtn = placeShipSection.querySelector("button#axis");
   const placeShipBoard = placeShipSection.querySelector("div#plBoard");
+  const shipSelection = placeShipSection.querySelector("div#selection");
+  const domCommander = shipSelection.querySelector("div#commander");
+  const domBattleship = shipSelection.querySelector("div#battleship");
+  const domDestroyer = shipSelection.querySelector("div#destroyer");
+  const domSubmarine = shipSelection.querySelector("div#submarine");
+  const domPatrolBoat = shipSelection.querySelector("div#patrolBoat");
+  const battleBtn = shipSelection.querySelector("button#battle");
 
   const gameSection = main.querySelector("section#game");
   const gamePlBoard = gameSection.querySelector("div#gamePlBoard");
@@ -27,6 +34,12 @@ const controlDOM = (() => {
   // Initial Load
 
   // main.removeChild(startSection);
+  // shipSelection.removeChild(domCommander);
+  shipSelection.removeChild(domBattleship);
+  shipSelection.removeChild(domDestroyer);
+  shipSelection.removeChild(domSubmarine);
+  shipSelection.removeChild(domPatrolBoat);
+  shipSelection.removeChild(battleBtn);
   main.removeChild(placeShipSection);
   placeShipSection.classList.remove("hidden");
   main.removeChild(gameSection);
