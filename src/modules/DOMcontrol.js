@@ -100,6 +100,25 @@ const controlDOM = (() => {
     });
   }
 
+  function toggleShipSelection() {
+    if (shipSelection.contains(domCommander)) {
+      shipSelection.removeChild(domCommander);
+      shipSelection.appendChild(domBattleship);
+    } else if (shipSelection.contains(domBattleship)) {
+      shipSelection.removeChild(domBattleship);
+      shipSelection.appendChild(domDestroyer);
+    } else if (shipSelection.contains(domDestroyer)) {
+      shipSelection.removeChild(domDestroyer);
+      shipSelection.appendChild(domSubmarine);
+    } else if (shipSelection.contains(domSubmarine)) {
+      shipSelection.removeChild(domSubmarine);
+      shipSelection.appendChild(domPatrolBoat);
+    } else if (shipSelection.contains(domPatrolBoat)) {
+      shipSelection.removeChild(domPatrolBoat);
+      shipSelection.appendChild(battleBtn);
+    }
+  }
+
   function setShipEvent(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -108,6 +127,7 @@ const controlDOM = (() => {
     game.setPlayerShip(coords, axis);
     updateGameBoard();
     if (game.showMessage() !== "Check coordinates again.") {
+      toggleShipSelection();
       removeGrid(placeShipBoard);
       attachDivGrid(placeShipBoard, getBoards.player, "player");
       setDragNDropEvents(placeShipBoard);
@@ -137,29 +157,21 @@ const controlDOM = (() => {
     playerInput.value = "";
   }
 
+  function startBattle(event) {
+    event.stopPropagation();
+    updateGameBoard();
+    attachDivGrid(gamePlBoard, getBoards.player, "player");
+    attachDivGrid(gameCompBoard, getBoards.comp);
+    addGridClickEvent();
+    main.removeChild(placeShipSection);
+    main.appendChild(gameSection);
+  }
+
   // Eventlisteners
 
   playerForm.addEventListener("submit", loadGame);
   axisBtn.addEventListener("click", changeAxis);
-
-  // startBtn.addEventListener("click", startGame);
-
-  // game.setPlayer("test");
-  // attachDivGrid(gamePlBoard, boards.player, "player");
-  // attachDivGrid(gameCompBoard, boards.comp);
-
-  // addGridClickEvent(
-  //   gameCompBoard,
-  //   gamePlBoard,
-  //   boards,
-  //   game.attack,
-  //   removeGrid,
-  //   attachDivGrid
-  // );
-
-  // setTimeout(() => {
-  //   removeGrid(placeShipBoard);
-  // }, 2000);
+  battleBtn.addEventListener("click", startBattle);
 })();
 
 export default controlDOM;
