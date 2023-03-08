@@ -369,9 +369,13 @@ template {
 body {
   font-size: 16px;
   display: grid;
-  min-height: 100vh;
+  min-height: 941px;
+  min-width: 657px;
+  width: auto;
+  height: auto;
   grid-template-rows: 70px 1fr 68px;
   background-color: #99b5c3;
+  position: relative;
 }
 
 main {
@@ -429,9 +433,10 @@ label input {
   text-align: center;
 }
 
-form#player button {
+button {
+  height: max-content;
   width: fit-content;
-  padding: 2px 8px;
+  padding: 4px 8px;
   font-weight: 700;
   border-radius: 8px;
 }
@@ -439,12 +444,6 @@ form#player button {
 section#place {
   align-items: center;
   padding-top: 20px;
-}
-
-section#place button {
-  height: max-content;
-  padding: 4px 8px;
-  border-radius: 8px;
 }
 
 section#place div#plBoard {
@@ -553,7 +552,7 @@ section#game div div.grid.miss {
 section#game {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  /* grid-template-rows: 250px 1fr; */
+  grid-template-rows: 460px;
   justify-items: center;
 }
 
@@ -576,9 +575,8 @@ h2#notice {
 
 section#game div.board {
   margin-top: 140px;
-  display: grid;
-  grid-template-columns: repeat(10, 18px);
-  grid-template-rows: repeat(10, 18px);
+  grid-template-columns: repeat(10, 28px);
+  grid-template-rows: repeat(10, 28px);
 }
 
 section#notice {
