@@ -100,12 +100,38 @@ const controlDOM = (() => {
     });
   }
 
+  function setShipEvent(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const coords = parseGridCoords(this);
+
+    game.setPlayerShip(coords, axis);
+    updateGameBoard();
+    if (game.showMessage() !== "Check coordinates again.") {
+      removeGrid(placeShipBoard);
+      attachDivGrid(placeShipBoard, getBoards.player, "player");
+      setDragNDropEvents(placeShipBoard);
+    }
+  }
+
+  function setDragNDropEvents(plBoard) {
+    const plGrids = plBoard.querySelectorAll("div.grid");
+    plGrids.forEach((grid, index) => {
+      grid.addEventListener("dragover", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+      });
+      grid.addEventListener("drop", setShipEvent.bind(index));
+    });
+  }
+
   function loadGame(event) {
     event.preventDefault();
     event.stopPropagation();
     game.setPlayer(playerInput.value);
     updateGameBoard();
     attachDivGrid(placeShipBoard, getBoards.player, "player");
+    setDragNDropEvents(placeShipBoard);
     main.removeChild(startSection);
     main.appendChild(placeShipSection);
     playerInput.value = "";
