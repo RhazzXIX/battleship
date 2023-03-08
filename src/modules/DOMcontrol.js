@@ -50,6 +50,7 @@ const controlDOM = (() => {
   const game = Game();
   let getBoards;
   let axis = "x";
+  let gameFinished = false;
 
   // Functions for DOM control
 
@@ -58,7 +59,6 @@ const controlDOM = (() => {
   };
 
   function changeAxis(e) {
-    console.log(axis);
     e.stopPropagation();
     if (axis === "x") {
       axis = "y";
@@ -78,7 +78,7 @@ const controlDOM = (() => {
     battleBtn.classList.toggle("axisY");
   }
 
-  function updateDOMBoard (playerBoard, compBoard) {
+  function updateDOMBoard(playerBoard, compBoard) {
     removeGrid(playerBoard);
     attachDivGrid(playerBoard, getBoards.player, "player");
     if (compBoard) {
@@ -87,12 +87,20 @@ const controlDOM = (() => {
     }
   }
 
+  function announceWinner() {
+    body.appendChild(noticeSection);
+    winnerNotice.textContent = game.showMessage();
+  }
+
   const gridClickEvent = (index) => {
     const coord = parseGridCoords(index);
     game.attack(coord);
     updateAppBoard();
-    updateDOMBoard(gamePlBoard, gameCompBoard)
-    console.log(game.showMessage());
+    updateDOMBoard(gamePlBoard, gameCompBoard);
+    if (game.showMessage() === "All ships has been sank!") {
+      gameFinished = true;
+      setTimeout(announceWinner, 500);
+    }
   };
 
   function addGridClickEvent() {
@@ -101,7 +109,9 @@ const controlDOM = (() => {
       grid.addEventListener("click", (e) => {
         e.stopPropagation();
         gridClickEvent(j);
-        addGridClickEvent();
+        if (!gameFinished) {
+          addGridClickEvent();
+        }
       });
     });
   }
@@ -177,6 +187,9 @@ const controlDOM = (() => {
   playerForm.addEventListener("submit", loadGame);
   axisBtn.addEventListener("click", changeAxis);
   battleBtn.addEventListener("click", startBattle);
+  restartBtn.addEventListener("click", () => {
+    window.location.reload();
+  });
 })();
 
 export default controlDOM;
