@@ -53,7 +53,7 @@ const controlDOM = (() => {
 
   // Functions for DOM control
 
-  const updateGameBoard = () => {
+  const updateAppBoard = () => {
     getBoards = game.getGameBoard();
   };
 
@@ -78,14 +78,20 @@ const controlDOM = (() => {
     battleBtn.classList.toggle("axisY");
   }
 
+  function updateDOMBoard (playerBoard, compBoard) {
+    removeGrid(playerBoard);
+    attachDivGrid(playerBoard, getBoards.player, "player");
+    if (compBoard) {
+      removeGrid(compBoard);
+      attachDivGrid(compBoard, getBoards.comp);
+    }
+  }
+
   const gridClickEvent = (index) => {
     const coord = parseGridCoords(index);
     game.attack(coord);
-    updateGameBoard();
-    removeGrid(gamePlBoard);
-    attachDivGrid(gamePlBoard, getBoards.player, "player");
-    removeGrid(gameCompBoard);
-    attachDivGrid(gameCompBoard, getBoards.comp);
+    updateAppBoard();
+    updateDOMBoard(gamePlBoard, gameCompBoard)
     console.log(game.showMessage());
   };
 
@@ -125,11 +131,10 @@ const controlDOM = (() => {
     const coords = parseGridCoords(this);
 
     game.setPlayerShip(coords, axis);
-    updateGameBoard();
+    updateAppBoard();
     if (game.showMessage() !== "Check coordinates again.") {
       toggleShipSelection();
-      removeGrid(placeShipBoard);
-      attachDivGrid(placeShipBoard, getBoards.player, "player");
+      updateDOMBoard(placeShipBoard);
       setDragNDropEvents(placeShipBoard);
     }
   }
@@ -149,7 +154,7 @@ const controlDOM = (() => {
     event.preventDefault();
     event.stopPropagation();
     game.setPlayer(playerInput.value);
-    updateGameBoard();
+    updateAppBoard();
     attachDivGrid(placeShipBoard, getBoards.player, "player");
     setDragNDropEvents(placeShipBoard);
     main.removeChild(startSection);
@@ -159,7 +164,7 @@ const controlDOM = (() => {
 
   function startBattle(event) {
     event.stopPropagation();
-    updateGameBoard();
+    updateAppBoard();
     attachDivGrid(gamePlBoard, getBoards.player, "player");
     attachDivGrid(gameCompBoard, getBoards.comp);
     addGridClickEvent();
