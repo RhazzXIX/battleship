@@ -11,17 +11,6 @@ const Game = () => {
   let winner;
   let callWinner = false;
 
-  const gameboards = {
-    player: playerBoard.showGameBoard(),
-    comp: compBoard.showGameBoard(),
-  };
-
-  compBoard.placeShip([0, 0], "x");
-  compBoard.placeShip([3, 0], "x");
-  compBoard.placeShip([2, 8], "y");
-  compBoard.placeShip([6, 3], "y");
-  compBoard.placeShip([7, 5], "x");
-
   const setPlayer = (name) => {
     if (player !== undefined) return;
     player = Player(name);
@@ -76,6 +65,8 @@ const Game = () => {
     playerBoard.placeShip(coords, axis);
     message = playerBoard.announce();
   }
+
+  compBoard.placeShipRandomly();
 
   return { setPlayer, getGameBoard, attack, showMessage, setPlayerShip };
 };

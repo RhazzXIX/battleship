@@ -1,4 +1,5 @@
 import Ship from "./ship";
+import { generateCoords } from "../helpers/coordinatesHandler";
 
 const GameBoard = () => {
   const gameBoard = [];
@@ -170,7 +171,21 @@ const GameBoard = () => {
 
   const announce = () => announcement;
 
-  return { showGameBoard, placeShip, receiveAttack, announce };
+  function placeShipRandomly() {
+    if (announcement === "All ships has been placed.") return;
+    const referenceNum = Math.floor(Math.random() * 2);
+    const randomAxis = referenceNum === 0 ? "x" : "y";
+    placeShip(generateCoords(), randomAxis);
+    placeShipRandomly();
+  }
+
+  return {
+    showGameBoard,
+    placeShip,
+    receiveAttack,
+    announce,
+    placeShipRandomly,
+  };
 };
 
 export default GameBoard;

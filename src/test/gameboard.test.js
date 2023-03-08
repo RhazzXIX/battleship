@@ -258,8 +258,8 @@ describe("Attack in the game board", () => {
   });
 });
 
-test('Can set ship randomly', () => {
-  playerBoard.randomShipPlacement();
+test("Can set ship randomly", () => {
+  playerBoard.placeShipRandomly();
   expect(playerBoard.showGameBoard()).not.toEqual([
     [
       { shot: null },
@@ -382,4 +382,4 @@ test('Can set ship randomly', () => {
       { shot: null },
     ],
   ]);
-})
+});
