@@ -16,12 +16,6 @@ const Game = () => {
     comp: compBoard.showGameBoard(),
   };
 
-  playerBoard.placeShip([0, 0], "x");
-  playerBoard.placeShip([3, 0], "x");
-  playerBoard.placeShip([2, 8], "y");
-  playerBoard.placeShip([6, 3], "y");
-  playerBoard.placeShip([7, 5], "x");
-
   compBoard.placeShip([0, 0], "x");
   compBoard.placeShip([3, 0], "x");
   compBoard.placeShip([2, 8], "y");
@@ -71,14 +65,19 @@ const Game = () => {
         callWinner = true;
         return message;
       }
-      message = `${player.showName()} is the winner!`;
+      message = `${winner} is the winner!`;
       return message;
     }
 
     return message;
   };
 
-  return { setPlayer, getGameBoard, attack, showMessage };
+  function setPlayerShip(coords, axis) {
+    playerBoard.placeShip(coords, axis);
+    message = playerBoard.announce();
+  }
+
+  return { setPlayer, getGameBoard, attack, showMessage, setPlayerShip };
 };
 
 export default Game;
