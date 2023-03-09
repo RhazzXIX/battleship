@@ -4,6 +4,7 @@ const commanderAI = () => {
   const attackCoordsEntered = [];
   const coordsToFocus = [];
   const adjacentCoords = [];
+  const inlineCoords = [];
   let turn = false;
 
   const checkCoordinates = (coords) => {
@@ -23,16 +24,28 @@ const commanderAI = () => {
   };
 
   function getAdjacentCoords() {
-    console.log(adjacentCoords);
+    if (adjacentCoords.length === 1) {
+      coordsToFocus.splice(0);
+    }
     return adjacentCoords.pop();
   }
 
+  function getInlineCoords() {
+    if (inlineCoords.length === 1) {
+      coordsToFocus.splice(0);
+    }
+    return inlineCoords.pop();
+  }
+
   const enterCoords = (enemyBoard, playerTurn) => {
-    console.log(adjacentCoords);
     if (turn === false) return;
     if (attackCoordsEntered.length === 100) return;
     let coords = generateCoords();
-    if (adjacentCoords.length) coords = getAdjacentCoords();
+    if (inlineCoords.length) {
+      coords = getInlineCoords();
+    } else if (adjacentCoords.length) {
+      coords = getAdjacentCoords();
+    }
     const entered = checkCoordinates(coords);
     if (!entered) {
       attackCoordsEntered.push(coords);
@@ -58,11 +71,39 @@ const commanderAI = () => {
     if (x - 1 >= 0) adjacentCoords.push([x - 1, y]);
   }
 
+  function generateInlineCoords() {
+    const [x, y] = [...coordsToFocus[0]];
+    const [a, b] = [...attackCoordsEntered[attackCoordsEntered.length - 1]];
+    if (a === x) {
+      if (b < y) {
+        if (y + 1 < 10) inlineCoords.push([x, y + 1]);
+        if (b - 1 >= 0) inlineCoords.push([a, b - 1]);
+      }
+      if (b > y) {
+        if (b + 1 < 10) inlineCoords.push([a, b + 1]);
+        if (y - 1 >= 0) inlineCoords.push([x, y - 1]);
+      }
+    }
+    if (b === y) {
+      if (a < x) {
+        if (x + 1 < 10) adjacentCoords.push([x + 1, y]);
+        if (a - 1 >= 0) adjacentCoords.push([a - 1, b]);
+      }
+      if (a > x) {
+        if (x - 1 >= 0) adjacentCoords.push([x - 1, y]);
+        if (a + 1 < 10) adjacentCoords.push([a + 1, b]);
+      }
+    }
+  }
+
   function getFeedback(feedback) {
     if (feedback === "hit") {
+      if (coordsToFocus.length) {
+        generateInlineCoords();
+        return;
+      }
       coordsToFocus.push(attackCoordsEntered[attackCoordsEntered.length - 1]);
       generateAdjacentCoords();
-      coordsToFocus.splice(0);
     }
   }
 

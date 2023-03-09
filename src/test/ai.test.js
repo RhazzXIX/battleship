@@ -219,8 +219,7 @@ describe("Coordinates entered by A.I.", () => {
     expect(checkCoordinates(attackMock.mock.calls[0][0])).toBeFalsy();
   });
 
-  test(`A.I. will attack adjacent coordinates it it's a hit`, () => {
-    console.log(coordinates);
+  test(`A.I. will attack adjacent coordinates if it's a hit`, () => {
     playerAI.startTurn();
     playerAI.enterCoords(attackMock, playerTurn);
     playerAI.getFeedback("hit");
