@@ -5,6 +5,8 @@ import commanderAI from "../modules/factories/ai";
 
 const coordinates = [];
 let attackMock;
+let playerTurn;
+
 const checkCoordinates = (x) => {
   const [y, z] = [...x];
   const lastCoordIndex = coordinates.findIndex((coords) => {
@@ -25,13 +27,36 @@ const checkCoordinates = (x) => {
   return double;
 };
 
-let playerTurn;
+function checkAdjacent() {
+  let adjacent = false;
+  const [x, y] = [...coordinates[0]];
+  const [a, b] = [...coordinates[1]];
 
-const playerAI = commanderAI();
+  switch (true) {
+    case a === x && b + 1 === y:
+      adjacent = true;
+      break;
+    case a === x && b - 1 === y:
+      adjacent = true;
+      break;
+    case a + 1 === x && b === y:
+      adjacent = true;
+      break;
+    case a - 1 === x && b === y:
+      adjacent = true;
+      break;
+    default:
+      adjacent = false;
+  }
+  return adjacent;
+}
+
+let playerAI;
 
 beforeEach(() => {
   playerTurn = jest.fn((x) => x);
   attackMock = jest.fn((x) => coordinates.push(x));
+  playerAI = commanderAI();
 });
 
 test("A.I. can call the functions properly", () => {
@@ -62,8 +87,9 @@ test(`A.I. cannot attack if it's not his turn`, () => {
 
 describe("Coordinates entered by A.I.", () => {
   beforeEach(() => {
-    coordinates.splice();
     playerTurn = jest.fn((x) => x);
+    playerAI = commanderAI();
+    coordinates.splice(0, coordinates.length);
   });
 
   test("A.I. will enter coordinates within the board", () => {
@@ -191,5 +217,16 @@ describe("Coordinates entered by A.I.", () => {
     playerAI.startTurn();
     playerAI.enterCoords(attackMock, playerTurn);
     expect(checkCoordinates(attackMock.mock.calls[0][0])).toBeFalsy();
+  });
+
+  test(`A.I. will attack adjacent coordinates it it's a hit`, () => {
+    console.log(coordinates);
+    playerAI.startTurn();
+    playerAI.enterCoords(attackMock, playerTurn);
+    playerAI.getFeedback("hit");
+    playerAI.startTurn();
+    playerAI.enterCoords(attackMock, playerTurn);
+    expect(attackMock.mock.calls).toHaveLength(2);
+    expect(checkAdjacent()).toEqual(true);
   });
 });

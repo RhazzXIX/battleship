@@ -2,6 +2,8 @@ import { generateCoords } from "../helpers/coordinatesHandler";
 
 const commanderAI = () => {
   const attackCoordsEntered = [];
+  const coordsToFocus = [];
+  const adjacentCoords = [];
   let turn = false;
 
   const checkCoordinates = (coords) => {
@@ -20,10 +22,17 @@ const commanderAI = () => {
     return entered;
   };
 
+  function getAdjacentCoords() {
+    console.log(adjacentCoords);
+    return adjacentCoords.pop();
+  }
+
   const enterCoords = (enemyBoard, playerTurn) => {
+    console.log(adjacentCoords);
     if (turn === false) return;
     if (attackCoordsEntered.length === 100) return;
-    const coords = generateCoords();
+    let coords = generateCoords();
+    if (adjacentCoords.length) coords = getAdjacentCoords();
     const entered = checkCoordinates(coords);
     if (!entered) {
       attackCoordsEntered.push(coords);
@@ -41,7 +50,23 @@ const commanderAI = () => {
     turn = true;
   };
 
-  return { enterCoords, showTurn, startTurn };
+  function generateAdjacentCoords() {
+    const [x, y] = [...coordsToFocus[0]];
+    if (y + 1 < 10) adjacentCoords.push([x, y + 1]);
+    if (x + 1 < 10) adjacentCoords.push([x + 1, y]);
+    if (y - 1 >= 0) adjacentCoords.push([x, y - 1]);
+    if (x - 1 >= 0) adjacentCoords.push([x - 1, y]);
+  }
+
+  function getFeedback(feedback) {
+    if (feedback === "hit") {
+      coordsToFocus.push(attackCoordsEntered[attackCoordsEntered.length - 1]);
+      generateAdjacentCoords();
+      coordsToFocus.splice(0);
+    }
+  }
+
+  return { enterCoords, showTurn, startTurn, getFeedback };
 };
 
 export default commanderAI;

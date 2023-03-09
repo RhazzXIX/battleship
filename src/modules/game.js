@@ -28,16 +28,15 @@ const Game = () => {
     if (player.showTurn() === false) return;
     player.attackBoard(coords, compBoard.receiveAttack, comp.startTurn);
     message = compBoard.announce();
-    if (compBoard.announce() === "All ships has been sank!")
-      winner = player.showName();
+    if (message === "All ships has been sank!") winner = player.showName();
   };
 
   const compAttack = () => {
     if (comp.showTurn() === false) return;
     comp.enterCoords(playerBoard.receiveAttack, player.startTurn);
     message = playerBoard.announce();
-    if (playerBoard.announce() === "All ships has been sank!")
-      winner = "Commander A.I.";
+    comp.getFeedback(message);
+    if (message === "All ships has been sank!") winner = "Commander A.I.";
   };
 
   const attack = (coords) => {
